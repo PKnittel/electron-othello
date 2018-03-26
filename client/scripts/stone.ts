@@ -1,17 +1,17 @@
 import { Color } from "./constants";
 
 export class Stone {
-    player: Color;
+    color: Color;
 
-    constructor(player: Color) {
-        this.player = player;
+    constructor(color: Color) {
+        this.color = color;
     }
 
     switchColor() {
-        this.player = (this.player + 1) % 2 ;
+        this.color = (this.color + 1) % 2 ;
     }
 
     getPlayer() {
-        return this.player;
+        return this.color;
     }
 }

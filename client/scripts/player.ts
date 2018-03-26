@@ -1,6 +1,6 @@
 import { Color } from "./constants";
 
-class Player {
+export class Player {
     color: Color;
 
     constructor(color: Color){
