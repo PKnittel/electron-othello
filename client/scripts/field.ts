@@ -13,6 +13,7 @@ class Field {
         }
         this.size = size;
         this.remainingTurns = size * size - 4;
+
         let gameField = new Array(size);
         for(let i=0; i<size; i++) {
             gameField[i] = new Array(size);
@@ -21,18 +22,18 @@ class Field {
         this.field = gameField;
 
         const centerPosition = (size / 2) - 1;
-        this.setCell(centerPosition, centerPosition, new Stone(Color.white));
-        this.setCell(centerPosition + 1, centerPosition,  new Stone(Color.black));
-        this.setCell(centerPosition, centerPosition + 1,  new Stone(Color.black));
-        this.setCell(centerPosition + 1, centerPosition + 1,  new Stone(Color.white));
+        this.setCell({x: centerPosition, y: centerPosition}, new Stone(Color.white));
+        this.setCell({x: centerPosition + 1, y: centerPosition},  new Stone(Color.black));
+        this.setCell({x: centerPosition, y: centerPosition + 1},  new Stone(Color.black));
+        this.setCell({x: centerPosition + 1, y: centerPosition + 1},  new Stone(Color.white));
     }
 
-    private getCell(x: number, y: number) {
-        return this.field[y][x];
+    private getCell(pos: Position) {
+        return this.field[pos.y][pos.x];
     }
 
-    private setCell(x: number, y: number, stone: Stone) {
-        this.field[y][x] = stone;
+    private setCell(pos: Position, stone: Stone) {
+        this.field[pos.y][pos.x] = stone;
     }
 
     showField() {
@@ -50,14 +51,14 @@ class Field {
     }
 
     private checkDirection(initialPosition: Position, step: Position, stone: Stone) {
-        let result = [];
+        let result: Position[] = [];
         let position = initialPosition;
         while(true) {
             position = {
                 x: position.x + step.x,
                 y: position.y + step.y,
             }
-            let cell = this.getCell(position.x, position.y);
+            let cell = this.getCell(position);
             if(!cell){
                 break;
             } else if(cell.getPlayer() === stone.getPlayer()){
@@ -73,26 +74,33 @@ class Field {
 
         return directions.reduce((acc, cur) => {
             return acc.concat(this.checkDirection(initialPosition, cur, stone) || [])
-        }, []);
+        }, new Array<Position>());
     }
 
     private switchStones(positions: Position[]) {
         positions.forEach((pos) => {
-            this.getCell(pos.x, pos.y).switchColor();
+            let cell = this.getCell(pos);
+            if(cell) {
+                cell.switchColor();
+            }
         })
     }
 
-    putStone(x: number, y: number, stone: Stone) {
-        if (x<0 || x >= this.size || y<0 || y >= this.size || this.getCell(x, y)){
+    private isPositionValid(position: Position) {
+        return !(position.x < 0 || position.x >= this.size || position.y<0 || position.y >= this.size );
+    }
+
+    putStone(position: Position, stone: Stone) {
+        if (!this.isPositionValid(position) || this.getCell(position)){
             return false;
         }
 
-        let stonesToSwitch = this.checkField({x: x, y:y}, stone);
+        let stonesToSwitch = this.checkField(position, stone);
         if(stonesToSwitch.length === 0) {
             return false;
         };
 
-        this.setCell(x, y, stone);
+        this.setCell(position, stone);
         this.switchStones(stonesToSwitch);
         this.remainingTurns--;
         return true;
@@ -108,7 +116,6 @@ const test = new Field(8);
 
 test.showField();
 console.log(' ');
-test.putStone(2, 3, new Stone(Color.black));
+test.putStone({x:2, y:3}, new Stone(Color.black));
 test.showField();
-
 */
