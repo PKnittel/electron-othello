@@ -1,1 +1,1 @@
-alert('blub');
+alert("your mom");

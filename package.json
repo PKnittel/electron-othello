@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build:client && electron .",
-    "build:client": "tsc",
+    "build:client": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +20,9 @@
   "homepage": "https://github.com/PKnittel/electron-othello#readme",
   "devDependencies": {
     "electron": "^1.8.4",
-    "typescript": "^2.7.2"
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.7.2",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13"
   }
 }
-

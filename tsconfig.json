@@ -1,8 +1,5 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "ES5",
-        "outDir": "client/scripts.dist",
-        "rootDir": "client/scripts"
+        "sourceMap": true
     }
 }
