@@ -1,0 +1,15 @@
+body {
+  background-color: rgb(0, 0, 15);
+  color: rgb(55,135,175);
+}
+h1 {
+  text-align: center;
+}
+#game_start {
+  margin-top: 12%;
+  text-align: center;
+}
+#rules {
+  margin-top: 5%;
+  text-align: center;
+}
