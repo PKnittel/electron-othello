@@ -1,0 +1,22 @@
+{
+  "name": "electron-othello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PKnittel/electron-othello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PKnittel/electron-othello/issues"
+  },
+  "homepage": "https://github.com/PKnittel/electron-othello#readme",
+  "devDependencies": {
+    "electron": "^1.8.4"
+  }
+}
