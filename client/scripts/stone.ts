@@ -1,9 +1,9 @@
-enum Color {
+export enum Color {
     white,
     black,
 }
 
-class Stone {
+export class Stone {
     player: Color;
 
     constructor(player: Color) {
