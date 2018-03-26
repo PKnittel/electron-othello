@@ -103,10 +103,12 @@ class Field {
     }
 }
 
-
+/*
 const test = new Field(8);
 
 test.showField();
 console.log(' ');
 test.putStone(2, 3, new Stone(Color.black));
 test.showField();
+
+*/
