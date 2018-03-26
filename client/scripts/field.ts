@@ -45,6 +45,10 @@ class Field {
         })
     }
 
+    getField() {
+        return this.field;
+    }
+
     private checkDirection(initialPosition: Position, step: Position, stone: Stone) {
         let result = [];
         let position = initialPosition;
