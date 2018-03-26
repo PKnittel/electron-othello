@@ -1,5 +1,7 @@
-import { Stone, Color } from "./stone";
+import { Stone } from "./stone";
+import { Color } from "./constants";
+
 
 const stone = new Stone(Color.black);
 
-alert(stone.getPlayer());
+alert(Color[stone.getPlayer()]);

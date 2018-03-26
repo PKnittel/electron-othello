@@ -1,7 +1,4 @@
-export enum Color {
-    white,
-    black,
-}
+import { Color } from "./constants";
 
 export class Stone {
     player: Color;
@@ -15,6 +12,6 @@ export class Stone {
     }
 
     getPlayer() {
-        return Color[this.player];
+        return this.player;
     }
 }
