@@ -2,7 +2,7 @@
 import { Stone } from "./stone";
 import { Color, Position } from "./constants";
 
-class Field {
+export class Field {
     field: (Stone | null)[][];
     remainingTurns: number;
     size: number;
