@@ -3,16 +3,17 @@ import { Stone } from "./stone";
 import { Color } from "./constants";
 
 class Field {
-    field: Array<Array<Stone>>;
+    field: (Stone | null)[][];
 
     constructor(size: number) {
         if(size >= 2 && size % 2 > 0) {
             throw('Unsupported field size. Please use a multiple of 2.')
         }
         let gameField = new Array(size);
-        gameField.map(function() {
-            return new Array(size);
-        });
+        for(let i=0; i<size; i++) {
+            gameField[i] = new Array(size);
+            gameField[i].fill(null);
+        }
         this.field = gameField;
 
         const centerPosition = (size / 2) - 1;
@@ -21,4 +22,23 @@ class Field {
         this.field[centerPosition][centerPosition + 1] = new Stone(Color.black);
         this.field[centerPosition + 1][centerPosition + 1] = new Stone(Color.white);
     }
+
+    showField() {
+        this.field.forEach(function(d, i) {
+            let line = '';
+            d.forEach(function(e, j){
+                line += e ? e.getPlayer() + ' ' : ', ';
+            })
+            console.log(line);
+        })
+    }
+
+    putStone(x: number, y: number, stone: Stone) {
+        this.field[x][y] = stone;
+    }
 }
+
+
+const test = new Field(8);
+
+test.showField();
