@@ -70,10 +70,11 @@ export class Game extends React.Component<any, any> {
 
     componentDidUpdate() {        
         if(this.field.isComplete()) {
-            alert('Game finished');
+            setTimeout(() => alert('Game finished'), 0);
+            return;
         }
         if(!this.field.possibleTurnAvailable(this.state.currentPlayer.getColor())) {
-            alert(`Player ${Color[this.state.currentPlayer.getColor()]}: There is no possible turn!`);
+            setTimeout(() => alert(`Player ${Color[this.state.currentPlayer.getColor()]}: There is no possible turn!`), 0);
             this.nextTurn();
         }
     }
