@@ -12,17 +12,17 @@ export class Game extends React.Component<any, any> {
 
     private initialize = () => {
         this.field = new Field(8);
+        this.state = {
+            isFinished: false,
+            currentPlayer: this.player1,
+            field: this.field.getField(),
+        }
     }
 
     constructor(props) {
         super(props);
 
         this.initialize();
-        this.state = {
-            isFinished: false,
-            currentPlayer: this.player1,
-            field: this.field.getField(),
-        }
     }
 
     nextTurn = () => {
@@ -73,6 +73,11 @@ export class Game extends React.Component<any, any> {
         console.log('click');
         const wasSuccesfull = this.field.putStone({x:x, y:y}, new Stone(this.state.currentPlayer.getColor()));
         console.log(wasSuccesfull);
+
+        if(this.field.isComplete()) {
+            alert('Game finished');
+            this.initialize();
+        }
         
         if(wasSuccesfull) {
             this.nextTurn();
