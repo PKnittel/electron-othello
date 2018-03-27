@@ -11,7 +11,7 @@ export class Game extends React.Component<any, any> {
     private player2: Player = new Player(Color.white);
 
     private initialize = () => {
-        this.field = new Field(4);
+        this.field = new Field(8);
         this.state = {
             isFinished: false,
             currentPlayer: this.player1,
