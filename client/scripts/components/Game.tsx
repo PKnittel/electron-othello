@@ -46,15 +46,30 @@ export class Game extends React.Component<any, any> {
     renderField() {
         const { field } = this.state;
         return (<table>
-            {field.map(this.renderRow)}
+            {field.map(this.renderRow.bind(this))}
         </table>);
     }
 
-    renderRow(row: [Stone]) {
+    renderRow(row: [Stone], rowNumber: number) {
+        const style = {
+            cursor: 'pointer'
+        };
+        const clickListener = this.clickField.bind(this);
         return (
             <tr>
-                {row.map((stone) => <td>{stone ? stone.getPlayer() : '-'}</td>)}
+                {row.map((stone: Stone, lineNumber: number) => 
+                    <td> <div style={style} onClick={() => clickListener(lineNumber, rowNumber)}>{stone ? stone.getPlayer() : '-'}</div></td>)}
             </tr>
         );
+    }
+
+    clickField = (x: number, y: number) => {
+        console.log('click');
+        const wasSuccesfull = this.field.putStone({x:x, y:y}, new Stone(this.state.currentPlayer.getColor()));
+        console.log(wasSuccesfull);
+        
+        if(wasSuccesfull) {
+            this.nextTurn();
+        }
     }
 };

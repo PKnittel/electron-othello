@@ -61,7 +61,7 @@ export class Field {
             let cell = this.getCell(position);
             if(!cell){
                 break;
-            } else if(cell.getPlayer() === stone.getPlayer()){
+            } else if(cell.getPlayer() == stone.getPlayer()){
                 return result;
             } else {
                 result.push(position);
