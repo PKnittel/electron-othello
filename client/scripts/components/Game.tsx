@@ -11,7 +11,7 @@ export class Game extends React.Component<any, any> {
     private player2: Player = new Player(Color.white);
 
     private initialize = () => {
-        this.field = new Field(8);
+        this.field = new Field(4);
         this.state = {
             isFinished: false,
             currentPlayer: this.player1,
@@ -33,7 +33,6 @@ export class Game extends React.Component<any, any> {
     }
 
     render() {
-
         return (
             <div>
                 <h2>Current Player: {Color[this.state.currentPlayer.getColor()]}</h2>
@@ -69,15 +68,18 @@ export class Game extends React.Component<any, any> {
         );
     }
 
-    clickField = (x: number, y: number) => {
-        console.log('click');
-        const wasSuccesfull = this.field.putStone({x:x, y:y}, new Stone(this.state.currentPlayer.getColor()));
-        console.log(wasSuccesfull);
-
+    componentDidUpdate() {        
         if(this.field.isComplete()) {
             alert('Game finished');
-            this.initialize();
         }
+        if(!this.field.possibleTurnAvailable(this.state.currentPlayer.getColor())) {
+            alert(`Player ${Color[this.state.currentPlayer.getColor()]}: There is no possible turn!`);
+            this.nextTurn();
+        }
+    }
+
+    clickField = (x: number, y: number) => {
+        const wasSuccesfull = this.field.putStone({x:x, y:y}, new Stone(this.state.currentPlayer.getColor()));
         
         if(wasSuccesfull) {
             this.nextTurn();

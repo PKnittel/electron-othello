@@ -56,7 +56,7 @@ export class Field {
         return this.field;
     }
 
-    private checkDirection(initialPosition: Position, step: Position, stone: Stone) {
+    private checkDirection(initialPosition: Position, step: Position, color: Color) {
         let result: Position[] = [];
         let position = initialPosition;
         while(true) {
@@ -67,7 +67,7 @@ export class Field {
             let cell = this.getCell(position);
             if(!cell){
                 break;
-            } else if(cell.getPlayer() == stone.getPlayer()){
+            } else if(cell.getPlayer() === color){
                 return result;
             } else {
                 result.push(position);
@@ -75,11 +75,11 @@ export class Field {
         }
     }
 
-    private checkField(initialPosition: Position, stone: Stone) {   
+    private checkField(initialPosition: Position, color: Color) {   
         const directions = [{x:1, y:0}, {x:1, y:1},  {x:0, y:1},  {x:-1, y:1}, {x:-1, y:0}, {x:-1, y:-1},  {x:0, y:-1},  {x:1, y:-1}];
 
         return directions.reduce((acc, cur) => {
-            return acc.concat(this.checkDirection(initialPosition, cur, stone) || [])
+            return acc.concat(this.checkDirection(initialPosition, cur, color) || [])
         }, new Array<Position>());
     }
 
@@ -101,7 +101,7 @@ export class Field {
             return false;
         }
 
-        let stonesToSwitch = this.checkField(position, stone);
+        let stonesToSwitch = this.checkField(position, stone.getPlayer());
         if(stonesToSwitch.length === 0) {
             return false;
         };
@@ -110,6 +110,21 @@ export class Field {
         this.switchStones(stonesToSwitch);
         this.remainingTurns--;
         return true;
+    }
+
+    possibleTurnAvailable(color: Color) {
+        for(let i=0; i < this.size; i++) {
+            for(let j=0; j < this.size; j++) {
+                let position = {x:i, y:j};
+                if (!this.isPositionValid(position) || this.getCell(position)){
+                    continue;
+                }
+                let stonesToSwitch = this.checkField(position, color);
+                if(stonesToSwitch.length > 0 ) {
+                    return true;
+                };
+            }
+        }
     }
 
     isComplete(){
