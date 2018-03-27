@@ -51,14 +51,20 @@ export class Game extends React.Component<any, any> {
     }
 
     renderRow(row: [Stone], rowNumber: number) {
-        const style = {
-            cursor: 'pointer'
-        };
+        const styles = [{
+            cursor: 'pointer',
+            'background-color':  'white',
+        }, {
+            cursor: 'pointer',
+            'background-color':  'orange',
+        }, {
+            cursor: 'pointer',
+        }];
         const clickListener = this.clickField.bind(this);
         return (
             <tr>
                 {row.map((stone: Stone, lineNumber: number) => 
-                    <td> <div style={style} onClick={() => clickListener(lineNumber, rowNumber)}>{stone ? stone.getPlayer() : '-'}</div></td>)}
+                    <td> <div style={stone ? styles[stone.getPlayer()] : styles[2]} onClick={() => clickListener(lineNumber, rowNumber)}>{stone ? stone.getPlayer() : '-'}</div></td>)}
             </tr>
         );
     }
