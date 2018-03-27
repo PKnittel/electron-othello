@@ -29,10 +29,16 @@ export class Field {
     }
 
     private getCell(pos: Position) {
+        if (!this.isPositionValid(pos)) {
+            return null;
+        }
         return this.field[pos.y][pos.x];
     }
 
     private setCell(pos: Position, stone: Stone) {
+        if (!this.isPositionValid(pos)) {
+            return;
+        }
         this.field[pos.y][pos.x] = stone;
     }
 
